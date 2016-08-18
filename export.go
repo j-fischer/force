@@ -136,16 +136,20 @@ func runExport(cmd *Command, args []string) {
 		{Name: "ValidationRule", Members: []string{"*"}},
 		{Name: "Workflow", Members: []string{"*"}},
 	}
-	files, err := force.Metadata.Retrieve(query)
-	if err != nil {
-		fmt.Printf("Encountered and error with retrieve...\n")
-		ErrorAndExit(err.Error())
-	}
+
+	// Search for the root directory first to avoid downloading the metadata to only receive an exception afterwards
 	root, err = GetSourceDir()
 	if err != nil {
 		fmt.Printf("Error obtaining root directory\n")
 		ErrorAndExit(err.Error())
 	}
+
+	files, err := force.Metadata.Retrieve(query)
+	if err != nil {
+		fmt.Printf("Encountered and error with retrieve...\n")
+		ErrorAndExit(err.Error())
+	}
+
 	for name, data := range files {
 		file := filepath.Join(root, name)
 		dir := filepath.Dir(file)
