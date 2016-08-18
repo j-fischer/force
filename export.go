@@ -92,7 +92,7 @@ func runExport(cmd *Command, args []string) {
 		{Name: "ExternalDataSource", Members: []string{"*"}},
 		{Name: "FieldSet", Members: []string{"*"}},
 		{Name: "Flow", Members: []string{"*"}},
-		{Name: "Folder", Members: []string{"*"}},
+		//{Name: "Folder", Members: []string{"*"}},
 		{Name: "ForecastingSettings", Members: []string{"*"}},
 		{Name: "Group", Members: []string{"*"}},
 		{Name: "HomePageComponent", Members: []string{"*"}},
