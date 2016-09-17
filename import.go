@@ -27,6 +27,7 @@ Deployment Options
   -ignorewarnings, -i     Indicates if warnings should fail deployment or not
   -directory, -d 		  Path to the package.xml file to import
   -verbose, -v 			  Provide detailed feedback on operation
+  -failifproblems, -f     Exits the deployment with an error code if problems are reported
 
 Examples:
 
@@ -50,10 +51,12 @@ var (
 	ignoreWarningsFlag    = cmdImport.Flag.Bool("ignorewarnings", false, "set ignore warnings")
 	directory             = cmdImport.Flag.String("directory", "metadata", "relative path to package.xml")
 	verbose               = cmdImport.Flag.Bool("verbose", false, "give more verbose output")
+	failIProblems         = cmdImport.Flag.Bool("failifproblems", false, "fail process if problems are reported")
 )
 
 func init() {
 	cmdImport.Run = runImport
+	cmdImport.Flag.BoolVar(failIProblems, "f", false, "fail process if problems are reported")
 	cmdImport.Flag.BoolVar(verbose, "v", false, "give more verbose output")
 	cmdImport.Flag.BoolVar(rollBackOnErrorFlag, "r", false, "set roll back on error")
 	cmdImport.Flag.BoolVar(runAllTestsFlag, "t", false, "set run all tests")
@@ -148,6 +151,9 @@ func runImport(cmd *Command, args []string) {
 				fmt.Printf("%s: %s\n", problem.FullName, problem.Problem)
 			}
 		}
+	}
+	if *failIProblems {
+		ErrorAndExit(" \nDeployment failures were reported")
 	}
 
 	fmt.Printf("\nSuccesses - %d\n", len(successes))
