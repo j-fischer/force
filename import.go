@@ -152,7 +152,7 @@ func runImport(cmd *Command, args []string) {
 			}
 		}
 	}
-	if *failIProblems {
+	if *failIProblems && len(problems) > 0 {
 		ErrorAndExit(" \nDeployment failures were reported")
 	}
 
