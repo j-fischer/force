@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-var Version = "dev"
+var Version = "dev1" // set to dev1 to prevent the callback URL from hitting a staging environment for sandboxes.
 
 //Dood, what
 var cmdVersion = &Command{
